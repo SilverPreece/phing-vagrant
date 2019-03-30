@@ -1,1 +1,4 @@
+.vagrant/
 /nbproject/
+/vendor/
+*cloudimg*.log

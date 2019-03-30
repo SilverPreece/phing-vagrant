@@ -1,0 +1,36 @@
+{
+    "name": "gregjpreece/phing-vagrant",
+    "description": "Phing Tasks for working with Vagrant",
+    "type": "library",
+    "license": "LGPL-3.0-only",
+    "authors": [
+        {
+            "name": "Greg J Preece",
+            "email": "greg@preece.ca",
+            "homepage": "https://preece.ca",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/GregJPreece/phing-vagrant/issues",
+        "source": "https://github.com/GregJPreece/phing-vagrant"
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": "^7.1",
+        "phing/phing": "^2.8.0",
+    },
+    "require-dev": {
+        "codeception/codeception": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "GregJPreece\\": "src/GregJPreece"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "GregJPreece\\": "test/GregJPreece"
+        }
+    }
+}
