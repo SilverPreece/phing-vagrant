@@ -9,7 +9,7 @@ namespace GregJPreece\Phing\Vagrant;
 class VagrantDestroyTask extends VagrantTask {
 
     public function main() {
-        $this->runCommand('destroy');
+        $this->runCommand('destroy --force');
     }
 
     public function init() {
