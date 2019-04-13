@@ -19,8 +19,10 @@
     "require": {
         "php": "^7.1",
         "phing/phing": "^2.8.0",
+        "myclabs/php-enum": "^1.6"
     },
     "require-dev": {
+        "ext-zip": "*",
         "codeception/codeception": "^2.5"
     },
     "autoload": {
