@@ -14,19 +14,25 @@ use BuildException;
 abstract class VagrantTask extends \Task {
 
     /**
+     * Whether to output full logging or filtered logging
+     * @var bool
+     */
+    protected $verbose = false;
+    
+    /**
      * Passes a command through to Vagrant and parses the response
      * @param string $command Command to run
      * @param bool $verbose If false, only important messages are returned
      * @return array Parsed result lines
      * @throws VagrantRuntimeException
      */
-    protected function runCommand(string $command, bool $verbose = true): array {
+    protected function runCommand(string $command): array {
         $response = [];
         exec('vagrant ' . $command . ' --machine-readable', $response);            
 
         $parsedLines = VagrantOutputParser::parseLineArray($response);
 
-        if (! $verbose) {
+        if (! $this->getVerbose()) {
             $parsedLines = array_filter($parsedLines, function(VagrantLogEntry $logLine) {
                 return in_array($logLine->getType(), [
                     VagrantLogType::ACTION,
@@ -63,5 +69,21 @@ abstract class VagrantTask extends \Task {
         $formattedType = '[' . strtoupper($logEntry->getType()) . ']';
         return $formattedTime . $formattedType . ' ' . implode(', ', $logEntry->getData());
     }
-            
+    
+    /**
+     * Returns whether to show verbose logging
+     * @return bool
+     */
+    function getVerbose(): bool {
+        return $this->verbose;
+    }
+
+    /**
+     * Sets whether to show verbose logging
+     * @return bool
+     */
+    function setVerbose(bool $verbose): void {
+        $this->verbose = $verbose;
+    }
+    
 }
