@@ -10,13 +10,13 @@
 
     <includepath classpath="src/" />
     <taskdef name="vagrant-up" 
-             classname="GregJPreece\Phing\Vagrant\VagrantUpTask" />
+             classname="GregJPreece\Phing\Vagrant\Task\VagrantUpTask" />
     <taskdef name="vagrant-reload" 
-             classname="GregJPreece\Phing\Vagrant\VagrantReloadTask" />
+             classname="GregJPreece\Phing\Vagrant\Task\VagrantReloadTask" />
     <taskdef name="vagrant-halt" 
-             classname="GregJPreece\Phing\Vagrant\VagrantHaltTask" />
+             classname="GregJPreece\Phing\Vagrant\Task\VagrantHaltTask" />
     <taskdef name="vagrant-destroy" 
-             classname="GregJPreece\Phing\Vagrant\VagrantDestroyTask" />
+             classname="GregJPreece\Phing\Vagrant\Task\VagrantDestroyTask" />
     
     <target name="vagrant-up">
         <vagrant-up />

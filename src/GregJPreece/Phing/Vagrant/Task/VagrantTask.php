@@ -1,6 +1,6 @@
 <?php
 
-namespace GregJPreece\Phing\Vagrant;
+namespace GregJPreece\Phing\Vagrant\Task;
 
 use GregJPreece\Phing\Vagrant\Run\VagrantOutputParser;
 use GregJPreece\Phing\Vagrant\Run\VagrantLogEntry;

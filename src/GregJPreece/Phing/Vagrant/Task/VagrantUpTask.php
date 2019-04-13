@@ -1,6 +1,6 @@
 <?php
 
-namespace GregJPreece\Phing\Vagrant;
+namespace GregJPreece\Phing\Vagrant\Task;
 
 /**
  * Wrapper for Vagrant's "up" command
