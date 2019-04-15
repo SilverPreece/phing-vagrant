@@ -8,10 +8,6 @@ namespace GregJPreece\Phing\Vagrant\Task;
  */
 class VagrantUpTask extends VagrantTask {
 
-    public function init(): void {
-        
-    }
-    
     public function main(): void {
         $this->runCommand('up');
     }

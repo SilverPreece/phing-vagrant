@@ -11,9 +11,5 @@ class VagrantHaltTask extends VagrantTask {
     public function main() {
         $this->runCommand('halt');
     }
-
-    public function init() {
-        parent::init();
-    }
     
 }

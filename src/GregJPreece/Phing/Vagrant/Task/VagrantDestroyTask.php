@@ -12,8 +12,4 @@ class VagrantDestroyTask extends VagrantTask {
         $this->runCommand('destroy --force');
     }
 
-    public function init() {
-        parent::init();
-    }
-   
 }

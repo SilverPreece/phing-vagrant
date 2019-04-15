@@ -11,9 +11,5 @@ class VagrantReloadTask extends VagrantTask {
     public function main() {
         $this->runCommand('reload');
     }
-
-    public function init() {
-        parent::init();
-    }
     
 }
