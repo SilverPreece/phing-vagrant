@@ -20,6 +20,12 @@ abstract class VagrantTask extends \Task {
     protected $verbose = false;
     
     /**
+     * Whether to run silently (no output) - overrides verbosity
+     * @var bool
+     */
+    protected $silent = false;
+    
+    /**
      * Passes a command through to Vagrant and parses the response
      * @param string $command Command to run
      * @param bool $verbose If false, only important messages are returned
@@ -74,7 +80,7 @@ abstract class VagrantTask extends \Task {
      * Returns whether to show verbose logging
      * @return bool
      */
-    function getVerbose(): bool {
+    public function getVerbose(): bool {
         return $this->verbose;
     }
 
@@ -82,8 +88,25 @@ abstract class VagrantTask extends \Task {
      * Sets whether to show verbose logging
      * @return bool
      */
-    function setVerbose(bool $verbose): void {
+    public function setVerbose(bool $verbose): void {
         $this->verbose = $verbose;
+    }
+    
+    /**
+     * Returns whether logging output is turned off (overrides verbosity)
+     * @return bool
+     */
+    public function getSilent(): bool {
+        return $this->silent;
+    }
+
+    /**
+     * Sets whether to run silently (no output) - overrides verbosity
+     * @param bool $silent
+     * @return void
+     */
+    public function setSilent(bool $silent): void {
+        $this->silent = $silent;
     }
     
 }
