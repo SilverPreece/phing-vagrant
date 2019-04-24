@@ -34,7 +34,14 @@ abstract class VagrantTask extends \Task {
      */
     protected function runCommand(string $command): array {
         $response = [];
-        exec('vagrant ' . $command . ' --machine-readable', $response);            
+        // TODO: Test this on Windows and macOS
+        exec('vagrant ' . $command . ' --machine-readable', $response, $resCode);
+        
+        if ($resCode != 0) {
+            throw new BuildException(
+                'Unable to execute Vagrant commands. Is Vagrant installed?'
+            );
+        }
 
         $parsedLines = VagrantOutputParser::parseLineArray($response);
 
