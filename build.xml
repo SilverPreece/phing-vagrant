@@ -9,6 +9,8 @@
     <autoloader autoloaderpath="vendor/autoload.php" />
 
     <includepath classpath="src/" />
+    <taskdef name="vagrant-status"
+             classname="GregJPreece\Phing\Vagrant\Task\VagrantStatusTask" />
     <taskdef name="vagrant-up" 
              classname="GregJPreece\Phing\Vagrant\Task\VagrantUpTask" />
     <taskdef name="vagrant-reload" 
@@ -17,6 +19,10 @@
              classname="GregJPreece\Phing\Vagrant\Task\VagrantHaltTask" />
     <taskdef name="vagrant-destroy" 
              classname="GregJPreece\Phing\Vagrant\Task\VagrantDestroyTask" />
+    
+    <target name="vagrant-status">
+        <vagrant-status />
+    </target>
     
     <target name="vagrant-up">
         <vagrant-up />

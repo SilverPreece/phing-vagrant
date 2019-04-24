@@ -74,9 +74,21 @@ class VagrantLogType extends Enum {
     const UI = 'ui';
     
     /**
-     * If the log type does not match any of the known types, create
+     * If the log type does not match any of the known type s, create
      * an enum with this type
      */
     const UNKNOWN = 'unknown';
+    
+    /**
+     * Special-case log type used when querying Vagrant versions.
+     * No idea why this isn't of a more generic log type.
+     */
+    const VERSION_INSTALLED = 'version-installed';
+    
+    /**
+     * Special-case log type used when querying Vagrant versions.
+     * No idea why this isn't of a more generic log type.
+     */
+    const VERSION_LATEST = 'version-latest';
     
 }
