@@ -29,7 +29,7 @@ abstract class VagrantTask extends \Task {
      * Passes a command through to Vagrant and parses the response
      * @param string $command Command to run
      * @param bool $verbose If false, only important messages are returned
-     * @return array Parsed result lines
+     * @return VagrantLogEntry[] Parsed result lines
      * @throws VagrantRuntimeException
      */
     protected function runCommand(string $command): array {
@@ -44,9 +44,27 @@ abstract class VagrantTask extends \Task {
         }
 
         $parsedLines = VagrantOutputParser::parseLineArray($response);
+        $this->outputLogsToConsole($parsedLines);
 
+        $errors = array_filter($parsedLines, function(VagrantLogEntry $logLine) {
+            return $logLine->getType() === VagrantLogType::ERROR_EXIT;
+        });
+        
+        if (count($errors) > 0) {
+            throw new BuildException($this->formatLogLine($errors[0]));
+        }
+        
+        return $parsedLines;
+    }
+    
+    /**
+     * Outputs response logs to the console
+     * @param VagrantLogEntry[] $logEntries Response logs to output
+     * @return void
+     */
+    protected function outputLogsToConsole(array $logEntries): void {
         if (! $this->getVerbose()) {
-            $parsedLines = array_filter($parsedLines, function(VagrantLogEntry $logLine) {
+            $logEntries = array_filter($logEntries, function(VagrantLogEntry $logLine) {
                 return in_array($logLine->getType(), [
                     VagrantLogType::ACTION,
                     VagrantLogType::BOX_NAME,
@@ -57,19 +75,9 @@ abstract class VagrantTask extends \Task {
             });
         }
         
-        foreach($parsedLines as $logEntry) {
+        foreach($logEntries as $logEntry) {
             echo $this->formatLogLine($logEntry) . "\n";
-        }
-        
-        $errors = array_filter($parsedLines, function(VagrantLogEntry $logLine) {
-            return $logLine->getType() === VagrantLogType::ERROR_EXIT;
-        });
-        
-        if (count($errors) > 0) {
-            throw new BuildException($this->formatLogLine($errors[0]));
-        }
-        
-        return $response;
+        }        
     }
     
     /**
