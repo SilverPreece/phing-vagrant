@@ -5,6 +5,12 @@
 
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "ubuntu/bionic64"
+  config.vm.define "one" do |one|
+    one.vm.box = "ubuntu/bionic64"
+  end
+
+  config.vm.define "two" do |two|
+    two.vm.box = "ubuntu/bionic64"
+  end
 
 end
