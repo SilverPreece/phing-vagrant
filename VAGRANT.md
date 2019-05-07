@@ -29,7 +29,10 @@ or the second method could gain a flag to suppress update checks.
 ## Destroying the box
 
 When attempting to destroy a box with the `--machine-readable` flag, the following
-error occurs. It does not occur when the `--force` flag is also added.
+error occurs. It does not occur when the `--force` flag is also added. This is
+because `vagrant destroy` will normally prompt the user to confirm VM destruction,
+which the machine-readable output cannot handle. This isn't *really* a bug, but
+perhaps the `--machine-readable` flag should imply `--force`?
 
 `1556436418,,error-exit,Vagrant::Errors::UIExpectsTTY,Vagrant is attempting to 
 interface with the UI in a way that requires\na TTY. Most actions in Vagrant that 
