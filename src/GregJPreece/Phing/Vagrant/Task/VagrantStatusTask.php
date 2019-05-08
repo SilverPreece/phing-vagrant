@@ -11,7 +11,7 @@ use GregJPreece\Phing\Vagrant\Run\VagrantLogType;
  * that can be used by other tasks.
  * @author Greg J Preece <greg@preece.ca>
  */
-class VagrantStatusTask extends VagrantTask {
+class VagrantStatusTask extends AbstractVagrantTask {
 
     /**
      * Called by Phing to run the task

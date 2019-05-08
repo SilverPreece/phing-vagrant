@@ -8,7 +8,7 @@ use GregJPreece\Phing\Vagrant\Traits\AcceptsMachineIdentifier;
  * Wrapper for Vagrant's "up" command
  * @author Greg J Preece <greg@preece.ca>
  */
-class VagrantUpTask extends VagrantTask {
+class VagrantUpTask extends AbstractVagrantTask {
 
     use AcceptsMachineIdentifier;
     

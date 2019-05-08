@@ -11,7 +11,7 @@ use BuildException;
  * Base task class from which other tasks derive
  * @author Greg J Preece <greg@preece.ca>
  */
-abstract class VagrantTask extends \Task {
+abstract class AbstractVagrantTask extends \Task {
 
     /**
      * Whether to output full logging or filtered logging

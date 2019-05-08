@@ -8,7 +8,7 @@ use GregJPreece\Phing\Vagrant\Traits\AcceptsMachineIdentifier;
  * Wrapper for Vagrant's "destroy" command
  * @author Greg J Preece <greg@preece.ca>
  */
-class VagrantDestroyTask extends VagrantTask {
+class VagrantDestroyTask extends AbstractVagrantTask {
 
     use AcceptsMachineIdentifier;
     
