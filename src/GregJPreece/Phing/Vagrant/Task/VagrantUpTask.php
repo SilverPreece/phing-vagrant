@@ -2,23 +2,15 @@
 
 namespace GregJPreece\Phing\Vagrant\Task;
 
+use GregJPreece\Phing\Vagrant\Traits\AcceptsMachineIdentifier;
+
 /**
  * Wrapper for Vagrant's "up" command
  * @author Greg J Preece <greg@preece.ca>
  */
 class VagrantUpTask extends VagrantTask {
 
-    /**
-     * Vagrant ID of the machine to start
-     * @var string
-     */
-    private $machineId;
-    
-    /**
-     * Name of the Vagrant machine to start
-     * @var string
-     */
-    private $machineName;
+    use AcceptsMachineIdentifier;
     
     /**
      * Whether to destroy a new machine if a fatal error
@@ -85,26 +77,9 @@ class VagrantUpTask extends VagrantTask {
         }
         
         $command = 'up ' . $machine . ' ' . implode(' ', $flags);
-        echo($command);
         $this->runCommand($command);
     }
     
-    /**
-     * Returns the Vagrant ID of the machine to start
-     * @return string|null
-     */
-    public function getMachineId(): ?string {
-        return $this->machineId;
-    }
-
-    /**
-     * Returns the name of the Vagrant machine to start
-     * @return string|null
-     */
-    public function getMachineName(): ?string {
-        return $this->machineName;
-    }
-
     /**
      * Returns whether to destroy a machine if fatal
      * provisioning errors are encountered
@@ -137,24 +112,6 @@ class VagrantUpTask extends VagrantTask {
      */
     public function getProvision(): ?bool {
         return $this->provision;
-    }
-
-    /**
-     * Sets the Vagrant ID of the machine to start
-     * @param string $machineId Vagrant machine ID
-     * @return void
-     */
-    public function setMachineId(string $machineId): void {
-        $this->machineId = $machineId;
-    }
-    
-    /**
-     * Sets the name of the Vagrant machine to start
-     * @param string $machineName Vagrant machine name
-     * @return void
-     */
-    public function setMachineName(string $machineName): void {
-        $this->machineName = $machineName;
     }
 
     /**
