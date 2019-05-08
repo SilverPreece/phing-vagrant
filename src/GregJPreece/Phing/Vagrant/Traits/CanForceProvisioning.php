@@ -53,9 +53,8 @@ trait CanForceProvisioning {
      * @param bool $provision Whether to run provisioners
      * @return void
      */
-    public function setProvision(bool $provision): void {
-        // The way Phing converts true/false strings to booleans is b0rked
-        $this->provision = !!$provision;
+    public function setProvision(bool $provision): void {        
+        $this->provision = $provision;
     }
     
 }
