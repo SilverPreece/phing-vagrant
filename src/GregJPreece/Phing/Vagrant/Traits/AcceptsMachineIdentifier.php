@@ -14,13 +14,13 @@ trait AcceptsMachineIdentifier {
      * Vagrant ID of the machine to start
      * @var string
      */
-    private $machineId;
+    protected $machineId;
     
     /**
      * Name of the Vagrant machine to start
      * @var string
      */
-    private $machineName;
+    protected $machineName;
     
     /**
      * Gets the ID or name that should be used to 

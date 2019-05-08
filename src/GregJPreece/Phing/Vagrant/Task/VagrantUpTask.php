@@ -19,21 +19,21 @@ class VagrantUpTask extends AbstractVagrantTask {
      * occurs during provisioning. (Only applies to first "up")
      * @var bool
      */
-    private $destroyOnError = true;
+    protected $destroyOnError = true;
     
     /**
      * Whether to install the machine's provisioner if it is
      * not already present
      * @var bool
      */
-    private $installProvider = true;
+    protected $installProvider = true;
     
     /**
      * Name of the provider to use when starting the machine,
      * overrides the provider specified in Vagrantfile.
      * @var string
      */
-    private $provider = 'virtualbox';
+    protected $provider = 'virtualbox';
     
     /**
      * Called by Phing to run the task

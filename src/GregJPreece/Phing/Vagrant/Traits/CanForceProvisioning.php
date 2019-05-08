@@ -14,7 +14,7 @@ trait CanForceProvisioning {
      * Forces or prevents the running of provisioners on start
      * @var boolean
      */
-    private $provision;
+    protected $provision;
     
     /**
      * Returns whether a provisioning option has been set

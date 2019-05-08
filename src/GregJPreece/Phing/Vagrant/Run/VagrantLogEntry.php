@@ -12,25 +12,25 @@ class VagrantLogEntry {
      * Unix timestamp at which the log event occurred
      * @var int
      */
-    private $timestamp;
+    protected $timestamp;
     
     /**
      * Target machine for the log event (usually "default")
      * @var string
      */
-    private $target;
+    protected $target;
     
     /**
      * Type of log message
      * @var VagrantLogType
      */
-    private $type;
+    protected $type;
     
     /**
      * Any other additional data supplied as part of the log
      * @var string[]
      */
-    private $data;
+    protected $data;
     
     /**
      * Creates an object representing one line of the Vagrant logs
