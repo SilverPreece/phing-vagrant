@@ -3,6 +3,7 @@
 namespace GregJPreece\Phing\Vagrant\Task;
 
 use GregJPreece\Phing\Vagrant\Traits\AcceptsMachineIdentifier;
+use GregJPreece\Phing\Vagrant\Traits\CanForceProvisioning;
 
 /**
  * Wrapper for Vagrant's "up" command
@@ -11,6 +12,7 @@ use GregJPreece\Phing\Vagrant\Traits\AcceptsMachineIdentifier;
 class VagrantUpTask extends AbstractVagrantTask {
 
     use AcceptsMachineIdentifier;
+    use CanForceProvisioning;
     
     /**
      * Whether to destroy a new machine if a fatal error
@@ -34,12 +36,6 @@ class VagrantUpTask extends AbstractVagrantTask {
     private $provider = 'virtualbox';
     
     /**
-     * Forces or prevents the running of provisioners on start
-     * @var boolean
-     */
-    private $provision;
-    
-    /**
      * Called by Phing to run the task
      * @return void
      */
@@ -59,10 +55,8 @@ class VagrantUpTask extends AbstractVagrantTask {
                      : '--no-install-provider';
         }
         
-        if ($this->getProvision() !== null) {
-            $flags[] = ($this->getProvision())
-                     ? '--provision'
-                     : '--no-provision';
+        if ($this->hasProvisioningOption()) {
+            $flags[] = $this->getProvisioningFlag();
         }
         
         if ($this->getProvider() != '') {
@@ -100,14 +94,6 @@ class VagrantUpTask extends AbstractVagrantTask {
     }
 
     /**
-     * Returns whether or not to run provisioners
-     * @return bool|null
-     */
-    public function getProvision(): ?bool {
-        return $this->provision;
-    }
-
-    /**
      * Sets whether to destroy VMs on fatal error during their statuses.
      * @param bool $destroyOnError Whether to destroy VMs on error
      * @return void
@@ -135,14 +121,4 @@ class VagrantUpTask extends AbstractVagrantTask {
         $this->provider = $provider;
     }
 
-    /**
-     * If true, provisioners are forced to run. If false, they are forced to
-     * not run. By default, it does neither.
-     * @param bool $provision Whether to run provisioners
-     * @return void
-     */
-    public function setProvision(bool $provision): void {
-        $this->provision = $provision;
-    }
-    
 }
