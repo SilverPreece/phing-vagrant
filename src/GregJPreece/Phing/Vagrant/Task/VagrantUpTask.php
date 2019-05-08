@@ -44,16 +44,9 @@ class VagrantUpTask extends VagrantTask {
      * @return void
      */
     public function main(): void {
-        $machine = '';
+        $machine = $this->getMachineIdentifier();
         $flags = [];
-        
-        // ID trumps name
-        if ($this->getMachineId() != '') {
-            $machine = $this->getMachineId();
-        } else if ($this->getMachineName() != '') {
-            $machine = $this->getMachineName();
-        }
-        
+                
         if ($this->getDestroyOnError() !== null) {
             $flags[] = ($this->getDestroyOnError()) 
                      ? '--destroy-on-error'

@@ -23,6 +23,25 @@ trait AcceptsMachineIdentifier {
     private $machineName;
     
     /**
+     * Gets the ID or name that should be used to 
+     * specify the target Vagrant machine when running
+     * a command. (Or null if one was not specified.)
+     * @return string|null
+     */
+    protected function getMachineIdentifier(): ?string {
+        $machine = null;
+        
+        // ID trumps name
+        if ($this->getMachineId() != '') {
+            $machine = $this->getMachineId();
+        } else if ($this->getMachineName() != '') {
+            $machine = $this->getMachineName();
+        }
+
+        return $machine;
+    }
+    
+    /**
      * Returns the Vagrant ID of the machine to start
      * @return string|null
      */
