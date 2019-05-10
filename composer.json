@@ -23,7 +23,8 @@
     },
     "require-dev": {
         "ext-zip": "*",
-        "codeception/codeception": "^2.5"
+        "codeception/codeception": "^2.5",
+        "php-mock/php-mock-phpunit": "^2.3"
     },
     "autoload": {
         "psr-4": {

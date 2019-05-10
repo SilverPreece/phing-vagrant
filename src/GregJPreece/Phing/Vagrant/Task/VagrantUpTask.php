@@ -38,9 +38,11 @@ class VagrantUpTask extends AbstractVagrantTask {
     /**
      * Called by Phing to run the task
      * @return void
+     * @throws VagrantRuntimeException
      */
     public function main(): void {
         $machine = $this->getMachineIdentifier();
+        $machine .= (!empty($machine)) ? ' ' : '';
         $flags = [];
                 
         if ($this->getDestroyOnError() !== null) {
@@ -63,7 +65,7 @@ class VagrantUpTask extends AbstractVagrantTask {
             $flags[] = '--provider ' . $this->getProvider();
         }
         
-        $command = 'up ' . $machine . ' ' . implode(' ', $flags);
+        $command = 'up ' . $machine . implode(' ', $flags);
         $this->runCommand($command);
     }
     
