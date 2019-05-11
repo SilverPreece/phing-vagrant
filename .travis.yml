@@ -1,0 +1,13 @@
+sudo: required
+language: php
+php:
+    - '7.1'
+    - '7.2'
+    - '7.3'
+before_install:
+    - sudo add-apt-repository ppa:ondrej/php
+    - sudo apt-get update -qq
+    - sudo apt-get install -y php$(phpenv version-name)-zip
+    - echo "extension = zip.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+install: composer install
+script: vendor/bin/codecept run
