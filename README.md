@@ -1,5 +1,8 @@
 # Phing Tasks for Vagrant
 
+[![Build Status](https://travis-ci.org/GregJPreece/phing-vagrant.svg?branch=master)](https://travis-ci.org/GregJPreece/phing-vagrant)
+[![Coverage Status](https://coveralls.io/repos/github/GregJPreece/phing-vagrant/badge.svg)](https://coveralls.io/github/GregJPreece/phing-vagrant)
+
 This Phing extension provides a wrapper for the Vagrant binary, so that Vagrant 
 virtual machines can be easily controlled from within Phing build targets. While
 this task library is not designed to be 100% feature complete with the Vagrant
