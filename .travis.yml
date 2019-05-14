@@ -10,5 +10,6 @@ before_install:
     - sudo apt-get update -qq
     - sudo apt-get install libzip4 libzip-dev
     - pecl install zip
-install: composer install
-script: vendor/bin/codecept run
+install: composer install --dev --no-interaction
+script: vendor/bin/codecept run unit --coverage --coverage-xml
+after_success: travis_retry php vendor/bin/php-coveralls
