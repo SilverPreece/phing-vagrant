@@ -9,6 +9,10 @@ use Codeception\Util\Fixtures;
 use phpmock\phpunit\PHPMock;
 use GregJPreece\Phing\Vagrant\Task\VagrantUpTask;
 
+/**
+ * Unit tests for the main "vagrant up" command
+ * @author Greg J Preece <greg@preece.ca>
+ */
 class VagrantUpTaskTest extends Unit {
 
     use PHPMock;
@@ -65,8 +69,7 @@ class VagrantUpTaskTest extends Unit {
             $this->assertEquals($expectedCommand, $command);
             $output = Fixtures::get('up.default.success');
             $return_var = 0;
-        }
-        );
+        });
 
         $this->task->main();
     }
@@ -225,6 +228,10 @@ class VagrantUpTaskTest extends Unit {
         );
 
         $this->task->main();
+    }
+
+    public function testCommandWithAllFlagsSwitchedOff(): void {
+        
     }
 
 }

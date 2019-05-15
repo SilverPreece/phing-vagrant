@@ -13,28 +13,28 @@ class VagrantUpTask extends AbstractVagrantTask {
 
     use AcceptsMachineIdentifier;
     use CanForceProvisioning;
-    
+
     /**
      * Whether to destroy a new machine if a fatal error
      * occurs during provisioning. (Only applies to first "up")
      * @var bool
      */
     protected $destroyOnError = true;
-    
+
     /**
      * Whether to install the machine's provisioner if it is
      * not already present
      * @var bool
      */
     protected $installProvider = true;
-    
+
     /**
      * Name of the provider to use when starting the machine,
      * overrides the provider specified in Vagrantfile.
      * @var string
      */
     protected $provider = 'virtualbox';
-    
+
     /**
      * Called by Phing to run the task
      * @return void
@@ -42,33 +42,30 @@ class VagrantUpTask extends AbstractVagrantTask {
      */
     public function main(): void {
         $machine = $this->getMachineIdentifier();
-        $machine .= (!empty($machine)) ? ' ' : '';
+        $machine = (!empty($machine)) ? ' ' . $machine : $machine;
         $flags = [];
-                
+
         if ($this->getDestroyOnError() !== null) {
-            $flags[] = ($this->getDestroyOnError()) 
-                     ? '--destroy-on-error'
-                     : '--no-destroy-on-error';
+            $flags[] = ($this->getDestroyOnError()) ? '--destroy-on-error' : '--no-destroy-on-error';
         }
-        
+
         if ($this->getInstallProvider() !== null) {
-            $flags[] = ($this->getInstallProvider())
-                     ? '--install-provider'
-                     : '--no-install-provider';
+            $flags[] = ($this->getInstallProvider()) ? '--install-provider' : '--no-install-provider';
         }
-        
+
         if ($this->hasProvisioningOption()) {
             $flags[] = $this->getProvisioningFlag();
         }
-        
+
         if ($this->getProvider() != '') {
             $flags[] = '--provider ' . $this->getProvider();
         }
-        
-        $command = 'up ' . $machine . implode(' ', $flags);
+
+        $flagSpacer = ((count($flags)) ? ' ' : '');
+        $command = 'up' . $machine . $flagSpacer . implode(' ', $flags);
         $this->runCommand($command);
     }
-    
+
     /**
      * Returns whether to destroy a machine if fatal
      * provisioning errors are encountered
