@@ -9,36 +9,34 @@ namespace GregJPreece\Phing\Vagrant\Traits;
  * @author Greg J Preece <greg@preece.ca>
  */
 trait CanForceProvisioning {
-    
+
     /**
      * Forces or prevents the running of provisioners on start
      * @var boolean
      */
     protected $provision;
-    
+
     /**
      * Returns whether a provisioning option has been set
      * @return boolean
      */
-    protected function hasProvisioningOption(): bool {
+    public function hasProvisioningOption(): bool {
         return ($this->getProvision() !== null);
     }
-    
+
     /**
-     * Returns the flag that should be appended to a command, 
+     * Returns the flag that should be appended to a command,
      * based on the current provisioning setting for the task
      * @return string|null
      */
     protected function getProvisioningFlag(): ?string {
         if ($this->hasProvisioningOption()) {
-            return $this->getProvision()
-                        ? '--provision'
-                        : '--no-provision';
+            return $this->getProvision() ? '--provision' : '--no-provision';
         } else {
             return null;
-        }           
+        }
     }
-    
+
     /**
      * Returns whether or not to run provisioners
      * @return bool|null
@@ -46,15 +44,15 @@ trait CanForceProvisioning {
     public function getProvision(): ?bool {
         return $this->provision;
     }
-    
+
     /**
      * If true, provisioners are forced to run. If false, they are forced to
      * not run. By default, it does neither.
      * @param bool $provision Whether to run provisioners
      * @return void
      */
-    public function setProvision(bool $provision): void {        
+    public function setProvision(bool $provision): void {
         $this->provision = $provision;
     }
-    
+
 }

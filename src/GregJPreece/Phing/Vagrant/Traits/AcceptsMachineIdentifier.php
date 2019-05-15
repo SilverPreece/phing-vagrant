@@ -9,28 +9,28 @@ namespace GregJPreece\Phing\Vagrant\Traits;
  * @author Greg J Preece <greg@preece.ca>
  */
 trait AcceptsMachineIdentifier {
-    
+
     /**
      * Vagrant ID of the machine to start
      * @var string
      */
     protected $machineId;
-    
+
     /**
      * Name of the Vagrant machine to start
      * @var string
      */
     protected $machineName;
-    
+
     /**
-     * Gets the ID or name that should be used to 
+     * Gets the ID or name that should be used to
      * specify the target Vagrant machine when running
      * a command. (Or null if one was not specified.)
      * @return string|null
      */
-    protected function getMachineIdentifier(): ?string {
+    public function getMachineIdentifier(): ?string {
         $machine = null;
-        
+
         // ID trumps name
         if ($this->getMachineId() != '') {
             $machine = $this->getMachineId();
@@ -40,7 +40,7 @@ trait AcceptsMachineIdentifier {
 
         return $machine;
     }
-    
+
     /**
      * Returns the Vagrant ID of the machine to start
      * @return string|null
@@ -65,7 +65,7 @@ trait AcceptsMachineIdentifier {
     public function setMachineId(string $machineId): void {
         $this->machineId = $machineId;
     }
-    
+
     /**
      * Sets the name of the Vagrant machine to start
      * @param string $machineName Vagrant machine name
@@ -73,6 +73,6 @@ trait AcceptsMachineIdentifier {
      */
     public function setMachineName(string $machineName): void {
         $this->machineName = $machineName;
-    }    
-    
+    }
+
 }
