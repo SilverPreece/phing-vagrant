@@ -217,6 +217,7 @@ class VagrantUpTaskTest extends Unit {
         $this->task->setInstallProvider(false);
         $this->task->setProvider('vmware');
         $this->task->setProvision(false);
+
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
         $fakeExec->expects($this->once())->willReturnCallback(
                 function($command, &$output, &$return_var) {
@@ -224,14 +225,9 @@ class VagrantUpTaskTest extends Unit {
             $this->assertEquals($expectedCommand, $command);
             $output = Fixtures::get('up.force-provision.success');
             $return_var = 0;
-        }
-        );
+        });
 
         $this->task->main();
-    }
-
-    public function testCommandWithAllFlagsSwitchedOff(): void {
-        
     }
 
 }

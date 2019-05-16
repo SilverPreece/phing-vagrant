@@ -38,7 +38,7 @@ class VagrantUpTask extends AbstractVagrantTask {
     /**
      * Called by Phing to run the task
      * @return void
-     * @throws VagrantRuntimeException
+     * @throws BuildException
      */
     public function main(): void {
         $machine = $this->getMachineIdentifier();
