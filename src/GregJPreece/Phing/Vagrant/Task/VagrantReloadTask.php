@@ -39,14 +39,28 @@ class VagrantReloadTask extends AbstractVagrantTask {
         $this->runCommand($command);
     }
 
+    /**
+     * Sets the provisioners that should be run on reload
+     * @param string $provisioners Comma separated list
+     * @return void
+     */
     public function setProvisioners($provisioners): void {
         $this->provisioners = explode(',', $provisioners);
     }
 
+    /**
+     * Returns the provisioners that should be run on reload
+     * @return array Array of provisioner names
+     */
     public function getProvisioners(): array {
         return $this->provisioners;
     }
 
+    /**
+     * Returns whether any provisioners have been specified
+     * to run during the reload action
+     * @return bool Whether provisioners exist
+     */
     public function hasProvisioners(): bool {
         return count($this->provisioners) > 0;
     }
