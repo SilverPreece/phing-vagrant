@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="phing-vagrant" 
+         basedir="." 
+         description="Build tasks for phing-vagrant"
+         phingVersion="2.8.0">
+    
+    <autoloader autoloaderpath="vendor/autoload.php" />
+    <includepath classpath="src/" />
+    <taskdef name="vagrant-status"
+             classname="GregJPreece\Phing\Vagrant\Task\VagrantStatusTask" />
+    <taskdef name="vagrant-up" 
+             classname="GregJPreece\Phing\Vagrant\Task\VagrantUpTask" />
+    <taskdef name="vagrant-reload" 
+             classname="GregJPreece\Phing\Vagrant\Task\VagrantReloadTask" />
+    <taskdef name="vagrant-halt" 
+             classname="GregJPreece\Phing\Vagrant\Task\VagrantHaltTask" />
+    <taskdef name="vagrant-destroy" 
+             classname="GregJPreece\Phing\Vagrant\Task\VagrantDestroyTask" />
+</project>
