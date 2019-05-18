@@ -12,7 +12,7 @@ use GregJPreece\Phing\Vagrant\Task\VagrantDestroyTask;
 
 /**
  * Unit tests for the "vagrant destroy" task
- * @author Greg J Preece <greg@preece.ca>c
+ * @author Greg J Preece <greg@preece.ca>
  */
 class VagrantDestroyTaskTest extends Unit {
     

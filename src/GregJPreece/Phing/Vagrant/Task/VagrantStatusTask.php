@@ -49,11 +49,8 @@ class VagrantStatusTask extends AbstractVagrantTask {
         $vagrantVersion = array_reduce($versionOutput, function($carry, VagrantLogEntry $item) {
             $matches = [];
 
-            if ($item->getType() === VagrantLogType::VERSION_INSTALLED) {
-                $versionFound = preg_match('/Installed Version:?\s(\d\.\d\.\d)/', $item, $matches);
-                if ($versionFound) {
-                    $carry = $matches[1];
-                }
+            if ($item->getType() == VagrantLogType::VERSION_INSTALLED) {
+                $carry = $item->getData()[0];
             }
 
             return $carry;
