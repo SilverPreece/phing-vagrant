@@ -33,7 +33,7 @@ class VagrantStatusTaskTest extends Unit {
 
     public function testMachineStateNotCreated(): void {
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
-        $fakeExec->expects($this->at(1))->willReturnCallback(
+        $fakeExec->expects($this->at(2))->willReturnCallback(
                 function($command, &$output, &$return_var) {
             $expectedCommand = 'vagrant status --machine-readable';
             $this->assertEquals($expectedCommand, $command);
@@ -47,7 +47,7 @@ class VagrantStatusTaskTest extends Unit {
     
     public function testMachineStateRunning(): void {
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
-        $fakeExec->expects($this->at(1))->willReturnCallback(
+        $fakeExec->expects($this->at(2))->willReturnCallback(
                 function($command, &$output, &$return_var) {
             $expectedCommand = 'vagrant status --machine-readable';
             $this->assertEquals($expectedCommand, $command);
@@ -61,7 +61,7 @@ class VagrantStatusTaskTest extends Unit {
     
     public function testMachineStatePoweredOff(): void {
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
-        $fakeExec->expects($this->at(1))->willReturnCallback(
+        $fakeExec->expects($this->at(2))->willReturnCallback(
                 function($command, &$output, &$return_var) {
             $expectedCommand = 'vagrant status --machine-readable';
             $this->assertEquals($expectedCommand, $command);
@@ -75,7 +75,7 @@ class VagrantStatusTaskTest extends Unit {
     
     public function testMachineStateSaved(): void {
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
-        $fakeExec->expects($this->at(1))->willReturnCallback(
+        $fakeExec->expects($this->at(2))->willReturnCallback(
                 function($command, &$output, &$return_var) {
             $expectedCommand = 'vagrant status --machine-readable';
             $this->assertEquals($expectedCommand, $command);
@@ -118,6 +118,52 @@ class VagrantStatusTaskTest extends Unit {
         $this->assertEquals(
             Fixtures::get('version.old.expected'), 
             $this->task->getProject()->getProperty('vagrant.version')
+        );
+    }
+    
+    public function testReadPluginList(): void {
+        $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
+        $fakeExec->expects($this->at(1))->willReturnCallback(
+                function($command, &$output, &$return_var) {
+            $expectedCommand = 'vagrant plugin list --machine-readable';
+            $this->assertEquals($expectedCommand, $command);
+            $output = Fixtures::get('plugin-list');
+            $return_var = 0;
+        });
+        
+        $this->task->main();
+        
+        $this->assertEquals(
+            '1.8.9',
+            $this->task->getProject()->getProperty('vagrant.plugin-version.vagrant-hostmanager')
+        );
+        $this->assertEquals(
+            'global',
+            $this->task->getProject()->getProperty('vagrant.plugin-scope.vagrant-hostmanager')
+        );
+        $this->assertEquals(
+            '1.2.0',
+            $this->task->getProject()->getProperty('vagrant.plugin-version.vagrant-remove-old-box-versions')
+        );
+        $this->assertEquals(
+            'global',
+            $this->task->getProject()->getProperty('vagrant.plugin-scope.vagrant-remove-old-box-versions')
+        );
+        $this->assertEquals(
+            '0.0.1',
+            $this->task->getProject()->getProperty('vagrant.plugin-version.vagrant-reload')
+        );
+        $this->assertEquals(
+            'global',
+            $this->task->getProject()->getProperty('vagrant.plugin-scope.vagrant-reload')
+        );
+        $this->assertEquals(
+            '0.15.1',
+            $this->task->getProject()->getProperty('vagrant.plugin-version.vagrant-vbguest')
+        );
+        $this->assertEquals(
+            'local',
+            $this->task->getProject()->getProperty('vagrant.plugin-scope.vagrant-vbguest')
         );
     }
     

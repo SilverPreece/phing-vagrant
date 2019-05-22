@@ -18,6 +18,7 @@ class VagrantStatusTask extends AbstractVagrantTask {
      */
     public function main() {
         $this->loadInstalledVersion();
+        $this->loadInstalledPlugins();
         $this->loadProjectStatus();
     }
 
@@ -59,6 +60,28 @@ class VagrantStatusTask extends AbstractVagrantTask {
         if (!empty($vagrantVersion)) {
             $this->setNamespacedProperty('version', $vagrantVersion);
         }
+    }
+    
+    /**
+     * Loads details of the currently installed plugins into project properties
+     * @return void
+     */
+    protected function loadInstalledPlugins(): void {
+        $pluginsOutput = $this->runCommand('plugin list');
+        $pluginList = [];
+        
+        foreach ($pluginsOutput as $pluginLine) {
+            if ($pluginLine->getType()->equals(VagrantLogType::PLUGIN_VERSION())) {
+                $pluginName = $pluginLine->getTarget();
+                $pluginVersionFrag = $pluginLine->getData();
+                $pluginList[] = $pluginName;
+                $this->setNamespacedProperty('plugin-version.' . $pluginName, $pluginLine->getData()[0]);                
+                $this->setNamespacedProperty('plugin-scope.' . $pluginName, $pluginLine->getData()[1]);
+            }
+        }
+        
+        $this->setNamespacedProperty('plugin-list', implode(',', $pluginList));
+        
     }
 
 }

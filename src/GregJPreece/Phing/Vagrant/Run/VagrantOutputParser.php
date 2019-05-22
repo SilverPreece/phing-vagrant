@@ -51,12 +51,26 @@ class VagrantOutputParser {
      * @return VagrantLogEntry Parsed log entry
      */
     public static function parseLine(string $logLine): VagrantLogEntry {
-        $splitLine = explode(',', $logLine);
+        $splitLine = explode(',', self::cleanLogMessage($logLine));
+        array_walk($splitLine, function(&$value) {
+            $value = trim($value);
+        });
+        
         return new VagrantLogEntry(
             (int) $splitLine[0],
             $splitLine[1],
             new VagrantLogType($splitLine[2]),
             array_slice($splitLine, 3)
         );
+    }
+    
+    /**
+     * Performs any required cleanup on a log
+     * message parsed in from Vagrant
+     * @param string $logMessage Message to clean
+     * @return string Cleaned message
+     */    
+    private static function cleanLogMessage(string $logMessage): string {
+        return trim(str_replace('%!(VAGRANT_COMMA)', ',', $logMessage));
     }
 }

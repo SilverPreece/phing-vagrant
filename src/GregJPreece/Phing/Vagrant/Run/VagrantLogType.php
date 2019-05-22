@@ -41,6 +41,17 @@ class VagrantLogType extends Enum {
     const METADATA = 'metadata';
     
     /**
+     * The name of a plugin installed in Vagrant
+     */
+    const PLUGIN_NAME = 'plugin-name';
+    
+    /**
+     * The version of a plugin installed in Vagrant
+     * (The name of the plugin will appear in the target field)
+     */
+    const PLUGIN_VERSION = 'plugin-version';
+    
+    /**
      * The provider name of the target machine.
      */
     const PROVIDER_NAME = 'provider-name';

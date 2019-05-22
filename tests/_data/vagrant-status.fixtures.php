@@ -2,6 +2,21 @@
 
 use Codeception\Util\Fixtures;
 
+Fixtures::add('plugin-list', [
+    '1558455471,,ui,info,vagrant-hostmanager (1.8.9%!(VAGRANT_COMMA) global)',
+    '1558455471,,plugin-name,vagrant-hostmanager',
+    '1558455471,vagrant-hostmanager,plugin-version,1.8.9%!(VAGRANT_COMMA) global',
+    '1558455471,,ui,info,vagrant-reload (0.0.1%!(VAGRANT_COMMA) global)',
+    '1558455471,,plugin-name,vagrant-reload',
+    '1558455471,vagrant-reload,plugin-version,0.0.1%!(VAGRANT_COMMA) global',
+    '1558455471,,ui,info,vagrant-remove-old-box-versions (1.2.0%!(VAGRANT_COMMA) global)',
+    '1558455471,,plugin-name,vagrant-remove-old-box-versions',
+    '1558455471,vagrant-remove-old-box-versions,plugin-version,1.2.0%!(VAGRANT_COMMA) global',
+    '1558455471,,ui,info,vagrant-vbguest (0.15.1%!(VAGRANT_COMMA) local)',
+    '1558455471,,plugin-name,vagrant-vbguest',
+    '1558455471,vagrant-vbguest,plugin-version,0.15.1%!(VAGRANT_COMMA) local'
+]);
+
 Fixtures::add('status.not-created', [
     '1558142096,one,metadata,provider,virtualbox',
     '1558142097,two,metadata,provider,virtualbox',
