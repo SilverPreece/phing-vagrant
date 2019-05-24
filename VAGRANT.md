@@ -38,3 +38,13 @@ perhaps the `--machine-readable` flag should imply `--force`?
 interface with the UI in a way that requires\na TTY. Most actions in Vagrant that 
 require a TTY have configuration\nswitches to disable this requirement. Please do 
 that or run Vagrant\nwith TTY.`
+
+## Installing plugins with multiple version constraints
+
+According to the 
+[Vagrant docs](https://www.vagrantup.com/docs/cli/plugin.html#plugin-version-version)
+it is possible to specify upper and lower bounds for a plugin's version. However,
+whenever I do this using the format shown in the docs, an error occurs. A single
+upper or lower bound succeeds, and a specific version succeeds. This appears to be
+a bug in Vagrant or its Ruby dependencies, so I have opened ticket 
+[10877](https://github.com/hashicorp/vagrant/issues/10877).
