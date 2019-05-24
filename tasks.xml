@@ -17,4 +17,6 @@
              classname="GregJPreece\Phing\Vagrant\Task\VagrantHaltTask" />
     <taskdef name="vagrant-destroy" 
              classname="GregJPreece\Phing\Vagrant\Task\VagrantDestroyTask" />
+    <taskdef name="vagrant-plugin-install"
+             classname="GregJPreece\Phing\Vagrant\Task\VagrantPluginInstallTask" />
 </project>
