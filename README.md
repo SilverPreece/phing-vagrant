@@ -13,7 +13,12 @@ command line, it should provide what is required during Phing builds.
 | Software | Version |
 | --- | --- |
 | PHP | 7.1+ |
-| Vagrant | 2.0+ |
+| Vagrant | TBD* |
+
+* I have been submitting patches to Vagrant's machine-readable mode,
+to get all of the Phing tasks here working correctly. As a result, 
+the minimum version for this extension will likely be 2.2.5, but this
+remains to be seen.
 
 # Helping with Development
 
