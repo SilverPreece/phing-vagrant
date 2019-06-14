@@ -22,6 +22,18 @@ trait AcceptsMachineIdentifier {
      */
     protected $machineName;
 
+    public function hasMachineIdentifier(): bool {
+        return $this->hasMachineId() || $this->hasMachineName();
+    }
+    
+    public function hasMachineId(): bool {
+        return $this->machineId !== null;
+    }
+    
+    public function hasMachineName(): bool {
+        return $this->machineName !== null;
+    }
+    
     /**
      * Gets the ID or name that should be used to
      * specify the target Vagrant machine when running
