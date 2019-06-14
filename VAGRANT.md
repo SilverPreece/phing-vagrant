@@ -48,3 +48,18 @@ whenever I do this using the format shown in the docs, an error occurs. A single
 upper or lower bound succeeds, and a specific version succeeds. This appears to be
 a bug in Vagrant or its Ruby dependencies, so I have opened ticket 
 [10877](https://github.com/hashicorp/vagrant/issues/10877).
+
+## Some commands have no machine-readable output
+
+Within Vagrant, different output functions are used for "UI" output, and  machine-
+readable output. It seems that not all functions currently have machine-readable
+output specified in their plugin files. I have begun submitting patches to Vagrant
+to correct this, though this may then mean that this extension cannot operate with
+existing Vagrant versions.
+
+## Unparseable output when running SSH commands
+
+When passing an SSH command to the guest, the stderr response is dropped directly
+into the machine-readable output without any formatting, which breaks the hell out
+of an attempt to parse it. Need to add special-case capture for these when parsing
+responses.
