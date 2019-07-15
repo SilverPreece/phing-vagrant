@@ -15,12 +15,21 @@ command line, it should provide what is required during Phing builds.
 | PHP | 7.1+ |
 | Vagrant | TBD* |
 
-* I have been submitting patches to Vagrant's machine-readable mode,
-to get all of the Phing tasks here working correctly. As a result, 
-the minimum version for this extension will likely be 2.2.5, but this
-remains to be seen.
+* I have been submitting patches to Vagrant's machine-readable mode, to get all of 
+the Phing tasks here working correctly. As a result, the minimum version for this 
+extension will likely be 2.2.5 or higher, but this remains to be seen.
 
-# Helping with Development
+## Phing Project Properties
+
+| Name | Example Value | Set By | Description |
+| --- | --- | --- | --- |
+| `vagrant.path` | `/usr/bin/vagrant` | You | Tells the Phing tasks where to find the Vagrant executable. (Can also be specified per-task using an attribute.) |
+| `vagrant.version` | `2.2.5` | vagrant-status | The version of Vagrant that Phing is executing tasks against |
+| `vagrant.plugin-list` | `vagrant-vbguest,vagrant-reload` | vagrant-status | Comma separated list of installed Vagrant plugins |
+| `vagrant.plugin-version.{pluginName}` | `1.8.0` | vagrant-status | The version of the named plugin that is currently installed |
+| `vagrant.plugin-scope.{pluginName}` | `global` or `local` | vagrant-status | Whether the named plugin was installed globally for all projects on the system, or locally to the current project |
+
+## Helping with Development
 
 phing-vagrant's codebase requires no prep to develop against other than installing
 its Composer dependencies, along with 

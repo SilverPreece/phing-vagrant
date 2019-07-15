@@ -26,6 +26,12 @@ abstract class AbstractVagrantTask extends \Task {
     protected $silent = false;
     
     /**
+     * System path to the Vagrant executable
+     * @var string
+     */
+    protected $vagrantPath;
+    
+    /**
      * Passes a command through to Vagrant and parses the response
      * @param string $command Command to run
      * @param bool $verbose If false, only important messages are returned
@@ -34,8 +40,10 @@ abstract class AbstractVagrantTask extends \Task {
      */
     protected function runCommand(string $command): array {
         $response = [];
+        $command = $this->getPathedVagrantExecutable() . ' ' . $command . ' --machine-readable';
+        
         // TODO: Test this on Windows and macOS
-        exec('vagrant ' . $command . ' --machine-readable', $response, $resCode);
+        exec($command, $response, $resCode);
         
         if ($resCode != 0) {
             throw new BuildException(
@@ -58,6 +66,25 @@ abstract class AbstractVagrantTask extends \Task {
         }
         
         return $parsedLines;
+    }
+    
+    /**
+     * Determines the path to the Vagrant executable, gives appropriate command.
+     * Paths set directly on the task take precedence, then paths set as project
+     * properties in Phing. If neither is set, the extension assumes Vagrant
+     * is already on the path.
+     * @return string
+     */
+    protected function getPathedVagrantExecutable(): string {
+        $pathProperty = $this->getProject()->getProperty('vagrant.path');
+        
+        if ($this->hasVagrantPath()) {
+            return $this->getVagrantPath();
+        } else if (!empty($pathProperty)) {
+            return $pathProperty;
+        } else {
+            return 'vagrant';
+        }
     }
     
     /**
@@ -89,7 +116,7 @@ abstract class AbstractVagrantTask extends \Task {
      * @return string
      */
     protected function getNamespacedProperty(string $propertyName): ?string {
-        return $this->project->getProperty($propertyName);
+        return $this->project->getProperty('vagrant.' . $propertyName);
     }
     
     /**
@@ -111,9 +138,10 @@ abstract class AbstractVagrantTask extends \Task {
      * @return string Formatted log entry
      */
     protected function formatLogLine(VagrantLogEntry $logEntry): string {
-        $formattedTime = '[' . date('Y-M-d H:i:s', $logEntry->getTimestamp()) . ']';
+        $formattedTime = '[' . date('Y-m-d H:i:s', $logEntry->getTimestamp()) . ']';
+        $formattedTarget = '[' . strtoupper($logEntry->getTarget()) . ']';
         $formattedType = '[' . strtoupper($logEntry->getType()) . ']';
-        return $formattedTime . $formattedType . ' ' . implode(', ', $logEntry->getData());
+        return $formattedTime . $formattedTarget . $formattedType . ' ' . implode(', ', $logEntry->getData());
     }
     
     /**
@@ -147,6 +175,32 @@ abstract class AbstractVagrantTask extends \Task {
      */
     public function setSilent(bool $silent): void {
         $this->silent = $silent;
+    }
+    
+    /**
+     * Returns whether a custom Vagrant path has been set on the task
+     * @return bool
+     */
+    public function hasVagrantPath(): bool {
+        return $this->vagrantPath !== null;
+    }
+    
+    /**
+     * Returns the path to the Vagrant executable
+     * (if set as a task attribute)
+     * @return string
+     */
+    public function getVagrantPath(): ?string {
+        return $this->vagrantPath;
+    }
+
+    /**
+     * Sets the path to the Vagrant executable
+     * @param string $vagrantPath
+     * @return void
+     */
+    public function setVagrantPath(string $vagrantPath): void {
+        $this->vagrantPath = $vagrantPath;
     }
     
 }

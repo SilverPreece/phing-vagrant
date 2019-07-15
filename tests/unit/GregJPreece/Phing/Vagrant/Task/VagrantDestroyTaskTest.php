@@ -8,7 +8,7 @@ use Codeception\Test\Unit;
 use Codeception\Util\Fixtures;
 use phpmock\phpunit\PHPMock;
 use GregJPreece\Phing\Vagrant\Task\VagrantDestroyTask;
-
+use Project;
 
 /**
  * Unit tests for the "vagrant destroy" task
@@ -29,6 +29,7 @@ class VagrantDestroyTaskTest extends Unit {
 
     protected function _before(): void {
         $this->task = new VagrantDestroyTask();
+        $this->task->setProject(new Project());
     }
     
     public function testDefaultParallelFlagValue(): void {

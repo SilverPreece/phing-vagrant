@@ -8,6 +8,7 @@ use Codeception\Test\Unit;
 use Codeception\Util\Fixtures;
 use phpmock\phpunit\PHPMock;
 use GregJPreece\Phing\Vagrant\Task\VagrantUpTask;
+use Project;
 
 /**
  * Unit tests for the main "vagrant up" command
@@ -24,6 +25,7 @@ class VagrantUpTaskTest extends Unit {
 
     protected function _before(): void {
         $this->task = new VagrantUpTask();
+        $this->task->setProject(new Project());
     }
 
     protected function _after(): void {

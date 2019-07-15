@@ -8,6 +8,7 @@ use Codeception\Test\Unit;
 use Codeception\Util\Fixtures;
 use phpmock\phpunit\PHPMock;
 use GregJPreece\Phing\Vagrant\Task\VagrantHaltTask;
+use Project;
 
 /**
  * Unit tests for "vagrant halt" task
@@ -29,6 +30,7 @@ class VagrantHaltTaskTest extends Unit {
 
     protected function _before() {
         $this->task = new VagrantHaltTask();
+        $this->task->setProject(new Project());
     }
 
     public function testDefaultForceFlagValue(): void {

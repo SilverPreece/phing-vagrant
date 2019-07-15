@@ -8,6 +8,7 @@ use Codeception\Test\Unit;
 use Codeception\Util\Fixtures;
 use phpmock\phpunit\PHPMock;
 use GregJPreece\Phing\Vagrant\Task\VagrantReloadTask;
+use Project;
 
 /**
  * Unit tests for the "vagrant reload" task
@@ -29,6 +30,7 @@ class VagrantReloadTaskTest extends Unit {
 
     protected function _before() {
         $this->task = new VagrantReloadTask();
+        $this->task->setProject(new Project());
     }
 
     public function testDefaultProvisionersValue(): void {
