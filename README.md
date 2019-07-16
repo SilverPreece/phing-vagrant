@@ -61,3 +61,12 @@ dependencies, and then:
 ```
 vendor/bin/codecept run
 ```
+
+## Issues with Vagrant's machine-readable mode
+
+Vagrant's `--machine-readable` flag is not currently a complete effort, and is
+marked as such in their documentation. However, rather than attempting to parse
+fragile output intended for a UI, I am instead documenting these issues and
+submitting patches to Vagrant where within my abilities as a non-Ruby coder. Details
+of what I have found so far and their current status can be found
+[at this link](docs/pages/VAGRANT.md).

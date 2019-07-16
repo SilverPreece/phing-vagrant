@@ -1,10 +1,9 @@
 # Issues with Vagrant's --machine-readable mode
 
 This document is a quick-reference for issues encountered when using the
-`--machine-readable` flag with the `vagrant` binary. At some future point,
-if time and skills allow, I may contribute fixes to Vagrant itself to clean
-up the output and fix these edge cases. This file exists during initial development
-of the project for ease of reference.
+`--machine-readable` flag with the `vagrant` binary. I have begun contributing fixes
+to Vagrant itself to clean up the output and fix these edge cases. This file exists 
+during initial development of the project for ease of reference.
 
 ## Getting local Vagrant version
 
@@ -57,7 +56,13 @@ output specified in their plugin files. I have begun submitting patches to Vagra
 to correct this, though this may then mean that this extension cannot operate with
 existing Vagrant versions.
 
-## Unparseable output when running SSH commands
+### Commands currently not producing useful output
+
+* ~~global-status~~
+* validate
+* ssh
+
+## Unparsable output when running SSH commands
 
 When passing an SSH command to the guest, the stderr response is dropped directly
 into the machine-readable output without any formatting, which breaks the hell out
