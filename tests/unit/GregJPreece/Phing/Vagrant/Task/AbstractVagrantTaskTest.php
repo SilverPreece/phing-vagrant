@@ -25,7 +25,12 @@ class AbstractVagrantTaskTest extends Unit {
      * @var MockObject
      */
     protected $task;
-        
+    
+    protected function setUp() {
+        parent::setUp();
+        date_default_timezone_set('UTC');
+    }
+    
     protected function _after() {
         $this->task = null;
     }
@@ -104,7 +109,7 @@ class AbstractVagrantTaskTest extends Unit {
             ]
         );
         $this->assertEquals(
-            '[2019-06-14 19:50:00][DEFAULT][ACTION] spike, jet, faye, ed, ein',
+            '[2019-06-15 02:50:00][DEFAULT][ACTION] spike, jet, faye, ed, ein',
             $formatMethod->invoke($this->task, $logLine)
         );
     }
