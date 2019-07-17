@@ -6,37 +6,25 @@
          description="Build tasks for phing-vagrant"
          phingVersion="2.8.0">
     
-    <autoloader autoloaderpath="vendor/autoload.php" />
-
-    <includepath classpath="src/" />
-    <taskdef name="vagrant-status"
-             classname="GregJPreece\Phing\Vagrant\Task\VagrantStatusTask" />
-    <taskdef name="vagrant-up" 
-             classname="GregJPreece\Phing\Vagrant\Task\VagrantUpTask" />
-    <taskdef name="vagrant-reload" 
-             classname="GregJPreece\Phing\Vagrant\Task\VagrantReloadTask" />
-    <taskdef name="vagrant-halt" 
-             classname="GregJPreece\Phing\Vagrant\Task\VagrantHaltTask" />
-    <taskdef name="vagrant-destroy" 
-             classname="GregJPreece\Phing\Vagrant\Task\VagrantDestroyTask" />
+    <import file="./tasks.xml" />
     
-    <target name="vagrant-status">
+    <target name="test-vagrant-status">
         <vagrant-status />
     </target>
     
-    <target name="vagrant-up">
+    <target name="test-vagrant-up">
         <vagrant-up />
     </target>
     
-    <target name="vagrant-reload">
+    <target name="test-vagrant-reload">
         <vagrant-reload />
     </target>
     
-    <target name="vagrant-halt">
+    <target name="test-vagrant-halt">
         <vagrant-halt />
     </target>
     
-    <target name="vagrant-destroy">
+    <target name="test-vagrant-destroy">
         <vagrant-destroy />
     </target>
     
