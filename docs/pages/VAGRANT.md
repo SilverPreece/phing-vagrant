@@ -68,3 +68,12 @@ When passing an SSH command to the guest, the stderr response is dropped directl
 into the machine-readable output without any formatting, which breaks the hell out
 of an attempt to parse it. Need to add special-case capture for these when parsing
 responses.
+
+## Documentation
+
+Several areas of the Vagrant documentation related to machine-readable output
+need updating:
+
+* The main page describing the mode is out-of-date and has an incomplete list of log line types
+* There is no documentation of error values returned in the `error-exit` log type
+* Some commands are documented but their pages are not linked in the menu, such as `winrm`
