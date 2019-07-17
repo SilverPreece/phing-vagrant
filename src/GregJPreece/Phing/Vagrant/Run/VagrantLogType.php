@@ -6,6 +6,9 @@ use MyCLabs\Enum\Enum;
 
 /**
  * Types of message that may be logged by Vagrant
+ * (Finding these in the Vagrant source code is easy - search for
+ * any instances of "ui.machine" and they'll  be the first parameter
+ * in the method call.)
  * @author Greg J Preece <greg@preece.ca>
  * @see https://www.vagrantup.com/docs/cli/machine-readable.html
  * @TODO Update Vagrant docs - some values here were undocumented
@@ -13,6 +16,11 @@ use MyCLabs\Enum\Enum;
 class VagrantLogType extends Enum {
 
     const ACTION = 'action';
+    
+    /**
+     * Arbitrary information about an installed box
+     */
+    const BOX_INFO = 'box-info';
     
     /**
      * Name of a box installed into Vagrant. 
@@ -25,6 +33,11 @@ class VagrantLogType extends Enum {
     const BOX_PROVIDER = 'box-provider';
     
     /**
+     * Version number of an installed box
+     */
+    const BOX_VERSION = 'box-version';
+    
+    /**
      * A sub-command of Vagrant that is available. 
      */
     const CLI_COMMAND = 'cli-command';
@@ -34,6 +47,21 @@ class VagrantLogType extends Enum {
      * Contains two data elements: type of error, error message.  
      */
     const ERROR_EXIT = 'error-exit';
+    
+    /**
+     * Details of a port forwarded from the host to the guest machine
+     */
+    const FORWARDED_PORT = 'forwarded_port'; // Underscore, because consistency!
+    
+    /**
+     * The internal ID of a given virtual machine  (first 7 characters)
+     */
+    const MACHINE_ID = 'machine-id';
+    
+    /**
+     * The home working directory of a virtual machine image
+     */
+    const MACHINE_HOME = 'machine-home';
     
     /**
      * Metadata about the Vagrant box being controlled or its provider
@@ -107,5 +135,11 @@ class VagrantLogType extends Enum {
      * No idea why this isn't of a more generic log type.
      */
     const VERSION_LATEST = 'version-latest';
+    
+    /**
+     * Configuration details for the Window Remote Management connector.
+     * This is sometimes used in Windows environments to manage VMs.
+     */
+    const WINRM_CONFIG = 'winrm-config';
     
 }
