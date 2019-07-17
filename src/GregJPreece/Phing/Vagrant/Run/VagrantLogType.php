@@ -52,6 +52,12 @@ class VagrantLogType extends Enum {
     const PLUGIN_VERSION = 'plugin-version';
     
     /**
+     * Which versions of a plugin may be installed to match requirements
+     * (The name of the plugin will appear in the target field)
+     */
+    const PLUGIN_VERSION_CONSTRAINT = 'plugin-version-constraint';
+    
+    /**
      * The provider name of the target machine.
      */
     const PROVIDER_NAME = 'provider-name';
