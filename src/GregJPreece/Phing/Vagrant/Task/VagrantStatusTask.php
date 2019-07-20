@@ -3,7 +3,7 @@
 namespace GregJPreece\Phing\Vagrant\Task;
 
 use GregJPreece\Phing\Vagrant\Run\VagrantLogEntry;
-use GregJPreece\Phing\Vagrant\Run\VagrantLogType;
+use GregJPreece\Phing\Vagrant\Data\VagrantLogType;
 
 /**
  * Reads in details of the Vagrant installation and

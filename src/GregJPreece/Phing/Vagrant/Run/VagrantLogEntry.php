@@ -2,6 +2,9 @@
 
 namespace GregJPreece\Phing\Vagrant\Run;
 
+use GregJPreece\Phing\Vagrant\Data\VagrantLogType;
+use GregJPreece\Phing\Vagrant\Data\VagrantErrorType;
+
 /**
  * Represents a single entry in the Vagrant machine log
  * @author Greg J Preece <greg@preece.ca>
@@ -33,10 +36,17 @@ class VagrantLogEntry {
     protected $data;
     
     /**
+     * If this line is of type VagrantLogType::ERROR_EXIT, this field
+     * holds the error type returned by Vagrant
+     * @var VagrantErrorType
+     */
+    protected $error;
+    
+    /**
      * Creates an object representing one line of the Vagrant logs
      * @param int $timestamp Unix timestamp at which the log event occurred
      * @param string $target Target machine for the log event
-     * @param \GregJPreece\Phing\Vagrant\Run\VagrantLogType $type Type of message
+     * @param \GregJPreece\Phing\Vagrant\Data\VagrantLogType $type Type of message
      * @param array $data Any other additional data payload supplied
      */
     public function __construct(int $timestamp, string $target, 
@@ -44,6 +54,12 @@ class VagrantLogEntry {
         $this->timestamp = $timestamp;
         $this->target = $target;
         $this->type = $type;
+        
+        if ($this->type == VagrantLogType::ERROR_EXIT) {
+            $this->setError(new VagrantErrorType($data[0]));
+            $data = array_slice($data, 1);
+        }
+        
         $this->data = $data;
     }
     
@@ -65,12 +81,21 @@ class VagrantLogEntry {
 
     /**
      * Gets the type of the log message
-     * @return \GregJPreece\Phing\Vagrant\Run\VagrantLogType
+     * @return \GregJPreece\Phing\Vagrant\Data\VagrantLogType
      */
     public function getType(): VagrantLogType {
         return $this->type;
     }
 
+    /**
+     * Returns the Vagrant error type for this log entry,
+     * if one has been set
+     * @return VagrantErrorType|null
+     */
+    public function getError(): ?VagrantErrorType {
+        return $this->error;
+    }
+    
     /**
      * Gets any additional data supplied as part of the log
      * @return array
@@ -99,7 +124,7 @@ class VagrantLogEntry {
 
     /**
      * Sets the type of the log message
-     * @param \GregJPreece\Phing\Vagrant\Run\VagrantLogType $type Message type
+     * @param \GregJPreece\Phing\Vagrant\Data\VagrantLogType $type Message type
      * @return void
      */
     public function setType(VagrantLogType $type): void {
@@ -113,6 +138,17 @@ class VagrantLogEntry {
      */
     public function setData(array $data): void {
         $this->data = $data;
+    }
+    
+    /** 
+     * When a log line is of type VagrantLogType::ERROR_EXIT,
+     * this method is used to set the type of error returned
+     * by Vagrant for the executed command
+     * @param VagrantErrorType $error Error type from Vagrant
+     * @return void
+     */
+    public function setError(VagrantErrorType $error): void {
+        $this->error = $error;
     }
 
 }

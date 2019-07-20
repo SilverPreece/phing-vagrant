@@ -8,7 +8,7 @@ require_once(__DIR__ . '/../../../../../_data/vagrant-up.fixtures.php');
 use Codeception\Test\Unit;
 use phpmock\phpunit\PHPMock;
 use GregJPreece\Phing\Vagrant\Run\VagrantLogEntry;
-use GregJPreece\Phing\Vagrant\Run\VagrantLogType;
+use GregJPreece\Phing\Vagrant\Data\VagrantLogType;
 use Project;
 
 /**
@@ -91,6 +91,28 @@ class AbstractVagrantTaskTest extends Unit {
         $this->assertEquals('whiz', $getMethod->invoke($this->task, 'cheese'));
         $setMethod->invoke($this->task, 'cheese', 'curds');
         $this->assertEquals('curds', $getMethod->invoke($this->task, 'cheese'));
+    }
+    
+    public function testErrorCodeReturnedFromVagrant(): void {
+        $commandMethod = $this->getMethodAsPublic('runCommand');
+        
+        $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
+        $fakeExec->expects($this->once())->willReturnCallback(
+            function($command, &$output, &$return_var) {
+                $output = [
+                    '1563661845,one,metadata,provider,virtualbox',
+                    '1563661845,two,metadata,provider,virtualbox',
+                    '1563661845,,ui,error,This command requires a specific VM name to target in a multi-VM environment.',
+                    '1563661845,,error-exit,Vagrant::Errors::MultiVMTargetRequired,This command requires a specific VM name to target in a multi-VM environment.'
+                ];
+                        
+                $return_var = 1;
+            }
+        );
+        
+        $this->expectException(\BuildException::class);
+        $commandMethod->invoke($this->task, 'ssh');
+
     }
     
     public function testLogLineFormatting(): void {

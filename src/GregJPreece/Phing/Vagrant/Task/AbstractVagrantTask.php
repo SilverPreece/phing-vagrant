@@ -4,7 +4,7 @@ namespace GregJPreece\Phing\Vagrant\Task;
 
 use GregJPreece\Phing\Vagrant\Run\VagrantOutputParser;
 use GregJPreece\Phing\Vagrant\Run\VagrantLogEntry;
-use GregJPreece\Phing\Vagrant\Run\VagrantLogType;
+use GregJPreece\Phing\Vagrant\Data\VagrantLogType;
 use BuildException;
 
 /**
@@ -36,7 +36,7 @@ abstract class AbstractVagrantTask extends \Task {
      * @param string $command Command to run
      * @param bool $verbose If false, only important messages are returned
      * @return VagrantLogEntry[] Parsed result lines
-     * @throws VagrantRuntimeException
+     * @throws BuildException
      */
     protected function runCommand(string $command): array {
         $response = [];
@@ -45,24 +45,21 @@ abstract class AbstractVagrantTask extends \Task {
         // TODO: Test this on Windows and macOS
         exec($command, $response, $resCode);
         
-        if ($resCode != 0) {
-            throw new BuildException(
-                'Unable to execute Vagrant commands. Is Vagrant installed?'
-            );
-        }
-
         $parsedLines = VagrantOutputParser::parseLineArray($response);
         
         if (! $this->getSilent()) {
             $this->outputLogsToConsole($parsedLines);            
         }
 
-        $errors = array_filter($parsedLines, function(VagrantLogEntry $logLine) {
-            return $logLine->getType() === VagrantLogType::ERROR_EXIT;
+        $foundError = array_reduce($parsedLines, function($carry, $item) {
+            if ($item->getType() == VagrantLogType::ERROR_EXIT) {
+                $carry = $item;
+            }
+            return $carry;
         });
         
-        if (count($errors) > 0) {
-            throw new BuildException($this->formatLogLine($errors[0]));
+        if ($resCode != 0) {
+            $this->raiseVagrantError($foundError);
         }
         
         return $parsedLines;
@@ -84,6 +81,24 @@ abstract class AbstractVagrantTask extends \Task {
             return $pathProperty;
         } else {
             return 'vagrant';
+        }
+    }
+    
+    protected function raiseVagrantError(?VagrantLogEntry $logEntry): void {
+        // Special case blah-blah
+        // If the Vagrantfile is not parsed properly, the Vagrant
+        // environment cannot properly initialise, and it will output a
+        // hard-coded string to stderr instead of a machine-readable one.
+        // @todo Talk to the Vagrant team about having a machine-readable option for this
+        if (empty($logEntry)) {
+            throw new BuildException("Vagrant failed to initialize before a command \n"
+                    . "could be run. This could be due to a syntax error in your \n"
+                    . "Vagrantfile. Please check that your Vagrantfile is valid \n"
+                    . "and that all necessary dependencies are installed.");
+        } else {
+            throw new BuildException('Vagrant returned a runtime error of type: ' .
+                    $logEntry->getError() . ".\n\n" . 
+                    implode("\n", $logEntry->getData()));
         }
     }
     

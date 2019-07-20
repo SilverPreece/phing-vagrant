@@ -66,12 +66,12 @@ class VagrantUpTaskTest extends Unit {
     public function testDefaultCommand(): void {
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
         $fakeExec->expects($this->once())->willReturnCallback(
-                function($command, &$output, &$return_var) {
-            $expectedCommand = 'vagrant up --destroy-on-error --install-provider --provider virtualbox --machine-readable';
-            $this->assertEquals($expectedCommand, $command);
-            $output = Fixtures::get('up.default.success');
-            $return_var = 0;
-        });
+            function($command, &$output, &$return_var) {
+                $expectedCommand = 'vagrant up --destroy-on-error --install-provider --provider virtualbox --machine-readable';
+                $this->assertEquals($expectedCommand, $command);
+                $output = Fixtures::get('up.default.success');
+                $return_var = 0;
+            });
 
         $this->task->main();
     }
@@ -80,12 +80,12 @@ class VagrantUpTaskTest extends Unit {
         $this->task->setMachineId('4611bf6');
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
         $fakeExec->expects($this->once())->willReturnCallback(
-                function($command, &$output, &$return_var) {
-            $expectedCommand = 'vagrant up 4611bf6 --destroy-on-error --install-provider --provider virtualbox --machine-readable';
-            $this->assertEquals($expectedCommand, $command);
-            $output = Fixtures::get('up.machine-id.success');
-            $return_var = 0;
-        }
+            function($command, &$output, &$return_var) {
+                $expectedCommand = 'vagrant up 4611bf6 --destroy-on-error --install-provider --provider virtualbox --machine-readable';
+                $this->assertEquals($expectedCommand, $command);
+                $output = Fixtures::get('up.machine-id.success');
+                $return_var = 0;
+            }
         );
 
         $this->task->main();
@@ -111,12 +111,12 @@ class VagrantUpTaskTest extends Unit {
         $this->task->setMachineName('one');
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
         $fakeExec->expects($this->once())->willReturnCallback(
-                function($command, &$output, &$return_var) {
-            $expectedCommand = 'vagrant up 4611bf6 --destroy-on-error --install-provider --provider virtualbox --machine-readable';
-            $this->assertEquals($expectedCommand, $command);
-            $output = Fixtures::get('up.machine-id.success');
-            $return_var = 0;
-        }
+            function($command, &$output, &$return_var) {
+                $expectedCommand = 'vagrant up 4611bf6 --destroy-on-error --install-provider --provider virtualbox --machine-readable';
+                $this->assertEquals($expectedCommand, $command);
+                $output = Fixtures::get('up.machine-id.success');
+                $return_var = 0;
+            }
         );
 
         $this->task->main();
@@ -126,12 +126,12 @@ class VagrantUpTaskTest extends Unit {
         $this->task->setDestroyOnError(true);
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
         $fakeExec->expects($this->once())->willReturnCallback(
-                function($command, &$output, &$return_var) {
-            $expectedCommand = 'vagrant up --destroy-on-error --install-provider --provider virtualbox --machine-readable';
-            $this->assertEquals($expectedCommand, $command);
-            $output = Fixtures::get('up.destroy.success');
-            $return_var = 0;
-        }
+            function($command, &$output, &$return_var) {
+                $expectedCommand = 'vagrant up --destroy-on-error --install-provider --provider virtualbox --machine-readable';
+                $this->assertEquals($expectedCommand, $command);
+                $output = Fixtures::get('up.destroy.success');
+                $return_var = 0;
+            }
         );
 
         $this->task->main();
@@ -141,12 +141,12 @@ class VagrantUpTaskTest extends Unit {
         $this->task->setDestroyOnError(false);
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
         $fakeExec->expects($this->once())->willReturnCallback(
-                function($command, &$output, &$return_var) {
-            $expectedCommand = 'vagrant up --no-destroy-on-error --install-provider --provider virtualbox --machine-readable';
-            $this->assertEquals($expectedCommand, $command);
-            $output = Fixtures::get('up.destroy.success');
-            $return_var = 0;
-        }
+            function($command, &$output, &$return_var) {
+                $expectedCommand = 'vagrant up --no-destroy-on-error --install-provider --provider virtualbox --machine-readable';
+                $this->assertEquals($expectedCommand, $command);
+                $output = Fixtures::get('up.destroy.success');
+                $return_var = 0;
+            }
         );
 
         $this->task->main();
@@ -156,12 +156,12 @@ class VagrantUpTaskTest extends Unit {
         $this->task->setInstallProvider(true);
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
         $fakeExec->expects($this->once())->willReturnCallback(
-                function($command, &$output, &$return_var) {
-            $expectedCommand = 'vagrant up --destroy-on-error --install-provider --provider virtualbox --machine-readable';
-            $this->assertEquals($expectedCommand, $command);
-            $output = Fixtures::get('up.install.success');
-            $return_var = 0;
-        }
+            function($command, &$output, &$return_var) {
+                $expectedCommand = 'vagrant up --destroy-on-error --install-provider --provider virtualbox --machine-readable';
+                $this->assertEquals($expectedCommand, $command);
+                $output = Fixtures::get('up.install.success');
+                $return_var = 0;
+            }
         );
 
         $this->task->main();
@@ -171,12 +171,12 @@ class VagrantUpTaskTest extends Unit {
         $this->task->setInstallProvider(false);
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
         $fakeExec->expects($this->once())->willReturnCallback(
-                function($command, &$output, &$return_var) {
-            $expectedCommand = 'vagrant up --destroy-on-error --no-install-provider --provider virtualbox --machine-readable';
-            $this->assertEquals($expectedCommand, $command);
-            $output = Fixtures::get('up.install.success');
-            $return_var = 0;
-        }
+            function($command, &$output, &$return_var) {
+                $expectedCommand = 'vagrant up --destroy-on-error --no-install-provider --provider virtualbox --machine-readable';
+                $this->assertEquals($expectedCommand, $command);
+                $output = Fixtures::get('up.install.success');
+                $return_var = 0;
+            }
         );
 
         $this->task->main();
@@ -186,12 +186,12 @@ class VagrantUpTaskTest extends Unit {
         $this->task->setProvision(true);
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
         $fakeExec->expects($this->once())->willReturnCallback(
-                function($command, &$output, &$return_var) {
-            $expectedCommand = 'vagrant up --destroy-on-error --install-provider --provision --provider virtualbox --machine-readable';
-            $this->assertEquals($expectedCommand, $command);
-            $output = Fixtures::get('up.force-provision.success');
-            $return_var = 0;
-        }
+            function($command, &$output, &$return_var) {
+                $expectedCommand = 'vagrant up --destroy-on-error --install-provider --provision --provider virtualbox --machine-readable';
+                $this->assertEquals($expectedCommand, $command);
+                $output = Fixtures::get('up.force-provision.success');
+                $return_var = 0;
+            }
         );
 
         $this->task->main();
@@ -201,12 +201,12 @@ class VagrantUpTaskTest extends Unit {
         $this->task->setProvision(false);
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
         $fakeExec->expects($this->once())->willReturnCallback(
-                function($command, &$output, &$return_var) {
-            $expectedCommand = 'vagrant up --destroy-on-error --install-provider --no-provision --provider virtualbox --machine-readable';
-            $this->assertEquals($expectedCommand, $command);
-            $output = Fixtures::get('up.force-provision.success');
-            $return_var = 0;
-        }
+            function($command, &$output, &$return_var) {
+                $expectedCommand = 'vagrant up --destroy-on-error --install-provider --no-provision --provider virtualbox --machine-readable';
+                $this->assertEquals($expectedCommand, $command);
+                $output = Fixtures::get('up.force-provision.success');
+                $return_var = 0;
+            }
         );
 
         $this->task->main();
@@ -222,12 +222,12 @@ class VagrantUpTaskTest extends Unit {
 
         $fakeExec = $this->getFunctionMock('GregJPreece\\Phing\\Vagrant\\Task', "exec");
         $fakeExec->expects($this->once())->willReturnCallback(
-                function($command, &$output, &$return_var) {
-            $expectedCommand = 'vagrant up 4611bf6 --no-destroy-on-error --no-install-provider --no-provision --provider vmware --machine-readable';
-            $this->assertEquals($expectedCommand, $command);
-            $output = Fixtures::get('up.force-provision.success');
-            $return_var = 0;
-        });
+            function($command, &$output, &$return_var) {
+                $expectedCommand = 'vagrant up 4611bf6 --no-destroy-on-error --no-install-provider --no-provision --provider vmware --machine-readable';
+                $this->assertEquals($expectedCommand, $command);
+                $output = Fixtures::get('up.force-provision.success');
+                $return_var = 0;
+            });
 
         $this->task->main();
     }

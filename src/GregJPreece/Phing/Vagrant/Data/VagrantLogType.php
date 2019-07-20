@@ -1,6 +1,6 @@
 <?php
 
-namespace GregJPreece\Phing\Vagrant\Run;
+namespace GregJPreece\Phing\Vagrant\Data;
 
 use MyCLabs\Enum\Enum;
 

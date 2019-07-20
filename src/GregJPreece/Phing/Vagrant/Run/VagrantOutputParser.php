@@ -2,6 +2,7 @@
 
 namespace GregJPreece\Phing\Vagrant\Run;
 
+use GregJPreece\Phing\Vagrant\Data\VagrantLogType;
 use GregJPreece\Phing\Vagrant\Run\VagrantLogEntry;
 
 /**
