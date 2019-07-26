@@ -4,6 +4,7 @@ namespace GregJPreece\Phing\Vagrant\Task;
 
 use GregJPreece\Phing\Vagrant\Run\VagrantOutputParser;
 use GregJPreece\Phing\Vagrant\Run\VagrantLogEntry;
+use GregJPreece\Phing\Vagrant\Run\VagrantResponse;
 use GregJPreece\Phing\Vagrant\Data\VagrantLogType;
 use BuildException;
 
@@ -45,24 +46,26 @@ abstract class AbstractVagrantTask extends \Task {
         // TODO: Test this on Windows and macOS
         exec($command, $response, $resCode);
         
-        $parsedLines = VagrantOutputParser::parseLineArray($response);
+        $parsedResponse = VagrantOutputParser::parseLineArray($response);
         
         if (! $this->getSilent()) {
-            $this->outputLogsToConsole($parsedLines);            
+            $this->outputLogsToConsole($parsedResponse);
         }
 
-        $foundError = array_reduce($parsedLines, function($carry, $item) {
-            if ($item->getType() == VagrantLogType::ERROR_EXIT) {
-                $carry = $item;
+        $foundError = array_reduce($parsedResponse->getVagrantLogs(), 
+            function($carry, $item) {
+                if ($item->getType() == VagrantLogType::ERROR_EXIT) {
+                    $carry = $item;
+                }
+                return $carry;
             }
-            return $carry;
-        });
+        );
         
         if ($resCode != 0) {
             $this->raiseVagrantError($foundError);
         }
         
-        return $parsedLines;
+        return $parsedResponse->getVagrantLogs();
     }
     
     /**
@@ -104,26 +107,35 @@ abstract class AbstractVagrantTask extends \Task {
     
     /**
      * Outputs response logs to the console
-     * @param VagrantLogEntry[] $logEntries Response logs to output
+     * @param VagrantResponse $response Response from Vagrant
      * @return void
      */
-    protected function outputLogsToConsole(array $logEntries): void {
+    protected function outputLogsToConsole(VagrantResponse $response): void {
         if (! $this->getVerbose()) {
-            $logEntries = array_filter($logEntries, function(VagrantLogEntry $logLine) {
-                return in_array($logLine->getType(), [
-                    VagrantLogType::ACTION,
-                    VagrantLogType::BOX_NAME,
-                    VagrantLogType::BOX_PROVIDER,
-                    VagrantLogType::ERROR_EXIT,
-                    VagrantLogType::STATE_HUMAN_LONG
-                ]);
-            });
+            $logEntries = array_filter($response->getVagrantLogs(), 
+                function(VagrantLogEntry $logLine) {
+                    return in_array($logLine->getType(), [
+                        VagrantLogType::ACTION,
+                        VagrantLogType::BOX_NAME,
+                        VagrantLogType::BOX_PROVIDER,
+                        VagrantLogType::ERROR_EXIT,
+                        VagrantLogType::STATE_HUMAN_LONG
+                    ]);
+                }
+            );
         }
         
-        foreach($logEntries as $logEntry) {
+        foreach ($logEntries as $logEntry) {
             // TODO: Switch me to use $this->log
             echo $this->formatLogLine($logEntry) . "\n";
-        }        
+        }
+        
+        if ($this->getVerbose()) {
+            foreach ($response->getOtherLogs() as $rawLogLine) {
+                // TODO: Switch me to use $this->log
+                echo $rawLogLine;
+            }
+        }
     }
     
     /**
